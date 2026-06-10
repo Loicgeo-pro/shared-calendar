@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:calendardb
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: loicgeo.pro@gmail.com
+    password: ${SERVER_MAIL_PASSWORD:REPLACE_ME}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+
+notification:
+  check:
+    interval: 60000  # check every 60 seconds
