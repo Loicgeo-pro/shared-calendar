@@ -1,8 +1,14 @@
 package com.calendar.domain.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Objects;
 
+@EqualsAndHashCode
+@ToString
 public class Event {
 
     private final EventId identifier;
@@ -18,7 +24,6 @@ public class Event {
                  LocalDateTime dueDate,
                  Recipients recipients) {
         this.identifier = Objects.requireNonNull(identifier);
-        this.notified = false;
         update(title, description, dueDate, recipients);
     }
 
@@ -33,6 +38,7 @@ public class Event {
         this.description = description;
         this.dueDate = dueDate;
         this.recipients = recipients;
+        this.notified = false;
     }
 
     public boolean isDue(LocalDateTime now) {
@@ -61,6 +67,10 @@ public class Event {
 
     public Recipients recipients() {
         return recipients;
+    }
+
+    public Collection<String> recipientEmails() {
+        return recipients.emails();
     }
 
     public boolean isNotified() {

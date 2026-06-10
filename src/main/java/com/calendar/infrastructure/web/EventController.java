@@ -1,6 +1,8 @@
 package com.calendar.infrastructure.web;
 
-import com.calendar.application.dto.*;
+import com.calendar.application.dto.CreateEventRequest;
+import com.calendar.application.dto.EventResponse;
+import com.calendar.application.dto.UpdateEventRequest;
 import com.calendar.application.mapper.EventMapper;
 import com.calendar.domain.model.Event;
 import com.calendar.domain.model.EventId;
@@ -9,7 +11,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -46,8 +55,9 @@ public class EventController {
     public ResponseEntity<EventResponse> update(@PathVariable String id,
                                                 @Valid @RequestBody UpdateEventRequest request) {
         EventId identifier = EventId.from(id);
-        Event updated = eventService.update(identifier, EventMapper.toDomain(identifier, request));
-        return ResponseEntity.ok(EventMapper.toResponse(updated));
+        Event eventToBeUpdated = EventMapper.toDomain(identifier, request);
+        Event updatedEvent = eventService.update(identifier, eventToBeUpdated);
+        return ResponseEntity.ok(EventMapper.toResponse(updatedEvent));
     }
 
     @DeleteMapping("/{id}")

@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class CalendarApplication {
+public class SharedCalendarApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CalendarApplication.class, args);
+        SpringApplication.run(SharedCalendarApplication.class, args);
     }
 
 }

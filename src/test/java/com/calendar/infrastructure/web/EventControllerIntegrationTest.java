@@ -15,8 +15,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,7 +34,7 @@ class EventControllerIntegrationTest {
     private CreateEventRequest sampleRequest() {
         return new CreateEventRequest(
                 "Sprint Review",
-                "Démo de fin de sprint",
+                "End of spring demo",
                 LocalDateTime.of(2027, 1, 15, 14, 0),
                 List.of("team@company.com")
         );

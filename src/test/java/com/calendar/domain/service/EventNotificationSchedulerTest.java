@@ -1,6 +1,9 @@
 package com.calendar.domain.service;
 
-import com.calendar.domain.model.*;
+import com.calendar.domain.model.Event;
+import com.calendar.domain.model.EventId;
+import com.calendar.domain.model.Recipient;
+import com.calendar.domain.model.Recipients;
 import com.calendar.domain.port.EventRepository;
 import com.calendar.domain.port.NotificationSender;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.*;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +54,7 @@ class EventNotificationSchedulerTest {
     void should_send_notification_for_due_events() {
         // Given
         Event dueEvent = new Event(
-                EventId.generate(), "Échéance passée", "desc",
+                EventId.generate(), "Past Due", "desc",
                 NOW.minusDays(1), RECIPIENTS
         );
         given(repository.findAllNotNotified()).willReturn(List.of(dueEvent));
@@ -67,7 +73,7 @@ class EventNotificationSchedulerTest {
     void should_not_send_notification_for_future_events() {
         // Given
         Event futureEvent = new Event(
-                EventId.generate(), "Futur", "desc",
+                EventId.generate(), "Future", "desc",
                 NOW.plusDays(5), RECIPIENTS
         );
         given(repository.findAllNotNotified()).willReturn(List.of(futureEvent));
