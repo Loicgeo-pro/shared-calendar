@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Build the project
-RUN apt-get update && apt-get install -y maven
-RUN mvn clean install
+RUN apt-get update && apt-get install -y maven && mvn clean package -DskipTests
 
 # Render provides the PORT environment variable, so we use it to run the application
 EXPOSE 8080
